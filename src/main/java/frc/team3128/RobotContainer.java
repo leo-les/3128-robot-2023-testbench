@@ -1,11 +1,13 @@
 package frc.team3128;
 
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 //import frc.team3128.commands.TestDrive;
 import frc.team3128.common.hardware.input.NAR_Joystick;
+import frc.team3128.common.narwhaldashboard.NarwhalDashboard;
 import frc.team3128.subsystems.TestBenchPiston;
 import frc.team3128.subsystems.TestBenchMotor;
 
@@ -37,8 +39,8 @@ public class RobotContainer {
 
         m_leftStick = new NAR_Joystick(0);
         m_rightStick = new NAR_Joystick(1);
-        // testBenchPiston = new TestBenchPiston();
-        testBenchMotor = new TestBenchMotor(); 
+        testBenchPiston = new TestBenchPiston();
+        // testBenchMotor = new TestBenchMotor(); 
         //m_commandScheduler.setDefaultCommand(testBenchSubsystem, new TestDrive(testBenchSubsystem));
 
         configureButtonBindings();
@@ -46,24 +48,25 @@ public class RobotContainer {
     }   
 
     private void configureButtonBindings() {
-        m_rightStick.getButton(1).onTrue(new RunCommand(testBenchMotor::run,testBenchMotor));
-        m_rightStick.getButton(1).onFalse(new RunCommand(testBenchMotor::stop,testBenchMotor));
+        // m_rightStick.getButton(1).onTrue(new RunCommand(testBenchMotor::run,testBenchMotor));
+        // m_rightStick.getButton(1).onFalse(new RunCommand(testBenchMotor::stop,testBenchMotor));
 
-        m_rightStick.getButton(2).onTrue(new RunCommand(testBenchMotor::run2,testBenchMotor));
-        m_rightStick.getButton(2).onFalse(new RunCommand(testBenchMotor::stop2,testBenchMotor));
+        // m_rightStick.getButton(1).onTrue(new RunCommand(testBenchMotor::run2,testBenchMotor));
+        // m_rightStick.getButton(1).onFalse(new RunCommand(testBenchMotor::stop2,testBenchMotor));
 
-        // m_rightStick.getButton(8).whenActive(new RunCommand(testBenchPiston::eject,testBenchPiston));
-        // m_rightStick.getButton(8).whenReleased(new RunCommand(testBenchPiston::off,testBenchPiston));
+        // m_rightStick.getButton(2).onTrue(new RunCommand(testBenchMotor::runReverse,testBenchMotor));
+        // m_rightStick.getButton(2).onFalse(new RunCommand(testBenchMotor::stop2,testBenchMotor));
 
-        // m_rightStick.getButton(10).whenActive(new RunCommand(testBenchPiston::retract,testBenchPiston)); 
-        // m_rightStick.getButton(10).whenReleased(new RunCommand(testBenchPiston::off,testBenchPiston));
+        m_rightStick.getButton(1).onTrue(new RunCommand(testBenchPiston::eject,testBenchPiston));
+
+        m_rightStick.getButton(2).onTrue(new RunCommand(testBenchPiston::retract,testBenchPiston)); 
     }
 
     private void dashboardInit() {
-        if (DEBUG) {
-            SmartDashboard.putData("CommandScheduler", CommandScheduler.getInstance());
-            //SmartDashboard.putData("Drivetrain", m_drive);
-        }
+        // if (DEBUG) {
+        //     SmartDashboard.putData("CommandScheduler", CommandScheduler.getInstance());
+        //     SmartDashboard.putNumber("xxxxxxMotorRPMxxxxxxx", testBenchMotor.logRPM());
+        // }
             
     }
 
@@ -74,4 +77,8 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         return auto;
     }
+
+    // public void updateDashboard() {
+    //     SmartDashboard.putNumber("xxxxxxMotorRPMxxxxxxx", testBenchMotor.logRPM());
+    // }
 }

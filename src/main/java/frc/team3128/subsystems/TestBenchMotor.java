@@ -8,28 +8,35 @@ import frc.team3128.common.hardware.motorcontroller.NAR_CANSparkMax;
 import frc.team3128.common.hardware.motorcontroller.NAR_TalonFX;
 
 public class TestBenchMotor extends SubsystemBase {
-    private NAR_TalonFX motor = new NAR_TalonFX(0);
-    private NAR_CANSparkMax spark = new NAR_CANSparkMax(11, MotorType.kBrushless);
+    private NAR_TalonFX motor = new NAR_TalonFX(9);
+    // private NAR_CANSparkMax spark = new NAR_CANSparkMax(19, MotorType.kBrushless);
 
     public TestBenchMotor() {}
 
-    public void run() {
-        motor.set(0.1);
+    // public void run() {
+    //     motor.set(0.1);
         
-    }
+    // }
 
-    public void stop() {
-        motor.set(0);
+    // public void stop() {
+    //     motor.set(0);
         
-    }
+    // }
 
     public void run2() {
-        spark.set(0.95);
+        motor.set(0.2);
+    }
+
+    public void runReverse() {
+        motor.set(-0.2);
     }
 
     public void stop2() {
-        spark.set(0);
+        motor.set(0);
     }
     
+    public double logRPM() {
+        return motor.getSelectedSensorVelocity() * 60 * 60 / 42 / 60 / 42 * 16;
+    }
 
 }
