@@ -4,12 +4,13 @@ import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 //import frc.team3128.commands.TestDrive;
 import frc.team3128.common.hardware.input.NAR_Joystick;
 import frc.team3128.common.narwhaldashboard.NarwhalDashboard;
 import frc.team3128.subsystems.TestBenchPiston;
-import frc.team3128.subsystems.LedStrip;
+import frc.team3128.subsystems.Led;
 import frc.team3128.subsystems.TestBenchMotor;
 
 /**
@@ -26,7 +27,7 @@ public class RobotContainer {
     private TestBenchPiston testBenchPiston;
     private NAR_Joystick m_leftStick;
     private NAR_Joystick m_rightStick;
-    private LedStrip m_LedStrip;
+    private Led m_LedStrip;
 
     private CommandScheduler m_commandScheduler = CommandScheduler.getInstance();
     private Command auto;
@@ -43,12 +44,13 @@ public class RobotContainer {
         m_rightStick = new NAR_Joystick(1);
         testBenchPiston = new TestBenchPiston();
 
-        m_LedStrip = new LedStrip();
+        m_LedStrip = new Led();
         // testBenchMotor = new TestBenchMotor(); 
         //m_commandScheduler.setDefaultCommand(testBenchSubsystem, new TestDrive(testBenchSubsystem));
 
         configureButtonBindings();
         dashboardInit();
+        new InstantCommand(m_LedStrip::setYellow,m_LedStrip);
     }   
 
     private void configureButtonBindings() {
@@ -64,8 +66,16 @@ public class RobotContainer {
         m_rightStick.getButton(1).onTrue(new RunCommand(testBenchPiston::eject,testBenchPiston));
 
         m_rightStick.getButton(2).onTrue(new RunCommand(testBenchPiston::retract,testBenchPiston)); 
-        m_rightStick.getButton(3).onTrue(new RunCommand(m_LedStrip::setPurple,m_LedStrip));
-        m_rightStick.getButton(4).onTrue(new RunCommand(m_LedStrip::setYellow,m_LedStrip));
+        m_rightStick.getButton(3).onTrue(new InstantCommand(m_LedStrip::setYellow,m_LedStrip));
+
+        m_rightStick.getButton(4).onTrue(new InstantCommand(()-> m_LedStrip.ChangeValue(-1)));
+        m_rightStick.getButton(5).onTrue(new InstantCommand(()-> m_LedStrip.ChangeValue(1)));
+
+        m_rightStick.getButton(6).onTrue(new InstantCommand(()-> m_LedStrip.ChangeSaturation(-1)));
+        m_rightStick.getButton(7).onTrue(new InstantCommand(()-> m_LedStrip.ChangeSaturation(1)));
+
+        m_rightStick.getButton(8).onTrue(new InstantCommand(()-> m_LedStrip.ChangeValue(-1)));
+        m_rightStick.getButton(9).onTrue(new InstantCommand(()-> m_LedStrip.ChangeValue(1)));
     }
 
     private void dashboardInit() {
