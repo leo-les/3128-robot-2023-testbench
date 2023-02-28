@@ -23,14 +23,14 @@ import frc.team3128.subsystems.TestBenchMotor;
 public class RobotContainer {
 
     //private NAR_Drivetrain m_drive;
-    private TestBenchMotor testBenchMotor;
-    private TestBenchPiston testBenchPiston;
+    //private TestBenchMotor testBenchMotor;
+    //private TestBenchPiston testBenchPiston;
     private NAR_Joystick m_leftStick;
     private NAR_Joystick m_rightStick;
     private Led m_LedStrip;
 
     private CommandScheduler m_commandScheduler = CommandScheduler.getInstance();
-    private Command auto;
+    //private Command auto;
 
     private boolean DEBUG = false;
 
@@ -42,7 +42,7 @@ public class RobotContainer {
 
         m_leftStick = new NAR_Joystick(0);
         m_rightStick = new NAR_Joystick(1);
-        testBenchPiston = new TestBenchPiston();
+        //testBenchPiston = new TestBenchPiston();
 
         m_LedStrip = new Led();
         // testBenchMotor = new TestBenchMotor(); 
@@ -63,9 +63,9 @@ public class RobotContainer {
         // m_rightStick.getButton(2).onTrue(new RunCommand(testBenchMotor::runReverse,testBenchMotor));
         // m_rightStick.getButton(2).onFalse(new RunCommand(testBenchMotor::stop2,testBenchMotor));
 
-        m_rightStick.getButton(1).onTrue(new RunCommand(testBenchPiston::eject,testBenchPiston));
+        //m_rightStick.getButton(1).onTrue(new RunCommand(testBenchPiston::eject,testBenchPiston));
 
-        m_rightStick.getButton(2).onTrue(new RunCommand(testBenchPiston::retract,testBenchPiston)); 
+        //m_rightStick.getButton(2).onTrue(new RunCommand(testBenchPiston::retract,testBenchPiston)); 
         m_rightStick.getButton(3).onTrue(new InstantCommand(m_LedStrip::setYellow,m_LedStrip));
 
         m_rightStick.getButton(4).onTrue(new InstantCommand(()-> m_LedStrip.ChangeValue(-1)));
@@ -90,9 +90,9 @@ public class RobotContainer {
         //m_drive.stop();
     }
 
-    public Command getAutonomousCommand() {
-        return auto;
-    }
+    //public Command getAutonomousCommand() {
+        //return auto;
+    //}
 
     // public void updateDashboard() {
     //     SmartDashboard.putNumber("xxxxxxMotorRPMxxxxxxx", testBenchMotor.logRPM());
