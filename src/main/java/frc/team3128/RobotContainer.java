@@ -20,7 +20,6 @@ import frc.team3128.subsystems.TestBenchMotor;
  */
 public class RobotContainer {
 
-    //private NAR_Drivetrain m_drive;
     private TestBenchMotor testBenchMotor;
     private TestBenchPiston testBenchPiston;
     private TestBenchDIO testBenchDIO;
@@ -36,7 +35,9 @@ public class RobotContainer {
 
         m_leftStick = new NAR_Joystick(0);
         m_rightStick = new NAR_Joystick(1);
-        testBenchMotor = new TestBenchMotor(); 
+        testBenchMotor = TestBenchMotor.getInstance();
+        testBenchPiston = TestBenchPiston.getInstance();
+        testBenchDIO = TestBenchDIO.getInstance(); 
 
         configureButtonBindings();
         dashboardInit();
@@ -45,7 +46,13 @@ public class RobotContainer {
     private void configureButtonBindings() {
 
         // m_rightStick.getButton(1).onTrue(new RunCommand(testBenchMotor::runFalcon,testBenchMotor));
-        // m_rightStick.getButton(1).onFalse(new RunCommand(testBenchMotor::runFalcon,testBenchMotor));
+        // m_rightStick.getButton(1).onFalse(new RunCommand(testBenchMotor::stopFalcon,testBenchMotor));
+
+        // m_rightStick.getButton(1).onTrue(new RunCommand(testBenchMotor::run775,testBenchMotor));
+        // m_rightStick.getButton(1).onFalse(new RunCommand(testBenchMotor::stop775,testBenchMotor));
+
+        // m_rightStick.getButton(1).onTrue(new RunCommand(testBenchMotor::runNeo,testBenchMotor));
+        // m_rightStick.getButton(1).onFalse(new RunCommand(testBenchMotor::stopNeo,testBenchMotor));
     }
 
     private void dashboardInit() {
@@ -57,7 +64,7 @@ public class RobotContainer {
     }
 
     public void stopDrivetrain() {
-        //m_drive.stop();
+
     }
 
     public Command getAutonomousCommand() {
@@ -65,7 +72,7 @@ public class RobotContainer {
     }
 
     public void updateDashboard() {
-        NAR_Shuffleboard.addData("Sensor", "megSwitch", testBenchDIO.sense(), 0, 0);
-        SmartDashboard.putBoolean("-----MagSwitch-----", testBenchDIO.sense());
+        //NAR_Shuffleboard.addData("Sensor", "megSwitch", testBenchDIO.sense(), 0, 0);
+        // SmartDashboard.putBoolean("-----MagSwitch-----", testBenchDIO.sense());
     }
 }
