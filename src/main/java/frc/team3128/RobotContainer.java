@@ -6,11 +6,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-//import frc.team3128.commands.TestDrive;
 import frc.team3128.common.hardware.input.NAR_Joystick;
-import frc.team3128.common.narwhaldashboard.NarwhalDashboard;
+import frc.team3128.common.utility.NAR_Shuffleboard;
 import frc.team3128.subsystems.TestBenchPiston;
 import frc.team3128.subsystems.Led;
+
+import frc.team3128.subsystems.TestBenchDIO;
+
 import frc.team3128.subsystems.TestBenchMotor;
 
 /**
@@ -22,9 +24,13 @@ import frc.team3128.subsystems.TestBenchMotor;
  */
 public class RobotContainer {
 
+
     //private NAR_Drivetrain m_drive;
     //private TestBenchMotor testBenchMotor;
     //private TestBenchPiston testBenchPiston;
+    //private TestBenchMotor testBenchMotor;
+    //private TestBenchPiston testBenchPiston;
+    //private TestBenchDIO testBenchDIO;
     private NAR_Joystick m_leftStick;
     private NAR_Joystick m_rightStick;
     private Led m_LedStrip;
@@ -36,12 +42,9 @@ public class RobotContainer {
 
     public RobotContainer() {
 
-        //m_drive = NAR_Drivetrain.getInstance();
-
-        //Enable all PIDSubsystems so that useOutput runs
-
         m_leftStick = new NAR_Joystick(0);
         m_rightStick = new NAR_Joystick(1);
+      
         //testBenchPiston = new TestBenchPiston();
 
         m_LedStrip = new Led();
@@ -54,14 +57,9 @@ public class RobotContainer {
     }   
 
     private void configureButtonBindings() {
-        // m_rightStick.getButton(1).onTrue(new RunCommand(testBenchMotor::run,testBenchMotor));
-        // m_rightStick.getButton(1).onFalse(new RunCommand(testBenchMotor::stop,testBenchMotor));
 
-        // m_rightStick.getButton(1).onTrue(new RunCommand(testBenchMotor::run2,testBenchMotor));
-        // m_rightStick.getButton(1).onFalse(new RunCommand(testBenchMotor::stop2,testBenchMotor));
-
-        // m_rightStick.getButton(2).onTrue(new RunCommand(testBenchMotor::runReverse,testBenchMotor));
-        // m_rightStick.getButton(2).onFalse(new RunCommand(testBenchMotor::stop2,testBenchMotor));
+        // m_rightStick.getButton(1).onTrue(new RunCommand(testBenchMotor::runFalcon,testBenchMotor));
+        // m_rightStick.getButton(1).onFalse(new RunCommand(testBenchMotor::stopFalcon,testBenchMotor));
 
         //m_rightStick.getButton(1).onTrue(new RunCommand(testBenchPiston::eject,testBenchPiston));
 
@@ -87,14 +85,15 @@ public class RobotContainer {
     }
 
     public void stopDrivetrain() {
-        //m_drive.stop();
+
     }
 
     //public Command getAutonomousCommand() {
         //return auto;
     //}
 
-    // public void updateDashboard() {
-    //     SmartDashboard.putNumber("xxxxxxMotorRPMxxxxxxx", testBenchMotor.logRPM());
-    // }
+    public void updateDashboard() {
+        //NAR_Shuffleboard.addData("Sensor", "megSwitch", testBenchDIO.sense(), 0, 0);
+        // SmartDashboard.putBoolean("-----MagSwitch-----", testBenchDIO.sense());
+    }
 }
